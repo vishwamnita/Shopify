@@ -19,8 +19,8 @@
 .env.test.local
 .env.production.local
 .gitToken
+message.txt
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-message.txt
