@@ -9,7 +9,7 @@ const data = {
             price: 2999,
             rating: 4.5,
             numReviews: 10,
-            countInStock: 0,
+            countInStock: 10,
         }, {
             _id: "2",
             name: "Fit Shirt",
