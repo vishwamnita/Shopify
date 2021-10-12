@@ -1,7 +1,26 @@
 import express from "express";
 import data from "./data";
+import dotenv from "dotenv";
+import config from "./config";
+import mongoose from "mongoose";
+import userRoute from "./routes/userRoute";
+import bodyParser from "body-parser";
+
+dotenv.config();
+
+const mongodbUrl = config.MONGODB_URL;
+mongoose.connect(mongodbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log("DB connected!"))
+.catch(error => console.log(error));
 
 const app = express();
+
+app.use(bodyParser.json());
+
+app.use("/api/users", userRoute);
 
 app.get("/api/products", (req, res) => {
     res.send(data.products);
