@@ -29,11 +29,11 @@ router.post("/signin", async (req, res) => {
     if(signinUser) {
         res.send({
             _id: signinUser._id,
-            email: signinUser._email,
+            email: signinUser.email,
             name: signinUser.name,
             type: signinUser.type,
             token: getToken(signinUser)
-        });    
+        });
     } else {
         res.status(401).send({msg: "Invalid Email or Password."});
     }    
@@ -53,7 +53,7 @@ router.post("/register", async (req, res) => {
     if(newUser) {
         res.send({
             _id: newUser._id,
-            email: newUser._email,
+            email: newUser.email,
             name: newUser.name,
             type: newUser.type,
             token: getToken(newUser)
