@@ -4,15 +4,17 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from "./screens/CartScreen";
 import SigninScreen from './screens/SigninScreen';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import RegisterScreen from './screens/RegisterScreen';
 import ProductsScreen from './screens/ProductsScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import { signOut } from './actions/userActions';
 
 function App() {
 
+    const dispatch = useDispatch();
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } = userSignin;
     const openMenu = () => {
@@ -22,6 +24,11 @@ function App() {
     const closeMenu = () => {
         document.querySelector(".sidebar").classList.remove("open");
     }
+
+    const signOutHandler = () => {
+        dispatch(signOut());
+    }
+
     return (
         <BrowserRouter>
             <div className="grid-container">
@@ -31,10 +38,19 @@ function App() {
                         <Link to="/">Shopify</Link>
                     </div>
                     <div className="header-links">
-                        <a href="cart.html">Cart</a>
+                        <Link to="/signin">Cart</Link>
+                        {/* <a href="cart.html">Cart</a> */}
                         {
-                            userInfo ? <Link to="/profile">{userInfo.name}</Link> :
-                                        <Link to="/signin">Sign In</Link>
+                            userInfo ? (
+                                <div className="dropdown">
+                                    <Link to="/profile">{userInfo.name}</Link>
+                                    <ul className="dropdown-content">
+                                        <Link to="/" onClick={signOutHandler}>Sign Out</Link>
+                                    </ul>
+                                </div>
+                            ) : (
+                                <Link to="/signin">Sign In</Link>                                
+                            )
                         }
                     </div>
                 </header>
@@ -53,6 +69,7 @@ function App() {
                 <main className="main">
                     <div className="content">
 
+                        <Route path="/signout" component={HomeScreen} />
                         <Route path="/placeorder" component={PlaceOrderScreen} />
                         <Route path="/payment" component={PaymentScreen} />
                         <Route path="/shipping" component={ShippingScreen} />
