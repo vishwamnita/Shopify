@@ -10,7 +10,7 @@ function Product(props) {
                 </Link>
                 
                 <div className="product-name">
-                    <Link to={"/product/" + props.id}>{props.name}</Link>
+                    <Link to={"/product/" + props.id} className="link-color">{props.name}</Link>
                 </div>
                 <div className="product-brand">{props.brand}</div>
                 <div className="product-price">&#8377; {props.price}</div>

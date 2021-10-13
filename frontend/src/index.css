@@ -13,12 +13,20 @@ button {
   font-size: 1.6rem;
 }
 
+select {
+  padding: 1rem;
+}
+
 .full-width {
   width: 100%;
 }
 
 #root {
   height: 100%;
+}
+
+.link-color {
+  color: #101010;
 }
 
 .grid-container {
@@ -46,6 +54,15 @@ button {
   text-decoration: none;
 }
 
+.badge {
+  background-color: #f02020;
+  color: #ffffff;
+  border-radius: 50%;
+  padding: 0.2rem 0.7rem;
+  font-size: 1.4rem;
+  margin-left: 0.2rem;
+}
+
 .header-links a {
   color:#ffffff;
   text-decoration: none;
@@ -56,8 +73,14 @@ button {
   color: #ff8000;
 }
 
+.admin-display {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
 .main {
   grid-area: main;
+  height: 100%;
 }
 
 .footer {
@@ -442,21 +465,26 @@ tbody>tr:nth-child(odd) {
 /* Drop Down */
 
 .dropdown {
-  display: inline-block;
   position: relative;
+  display: inline-block;
 }
 
+
 .dropdown-content {
-  position: absolute;
   display: none;
+  position: absolute;
   right: 0;
   min-width: 12rem;
   padding: 1rem;
   z-index: 1rem;
   background-color: #203040;
-  margin: 0;
-  margin-top: 0.4rem;
-  border-radius: 0.5rem;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content ul {
+  padding: 1rem;
+  text-decoration: none;
+  display: block;
 }
 
 .dropdown:hover .dropdown-content{

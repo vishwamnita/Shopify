@@ -11,12 +11,27 @@ import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import { signOut } from './actions/userActions';
+import { useEffect, useState } from 'react';
 
 function App() {
 
     const dispatch = useDispatch();
     const userSignin = useSelector(state => state.userSignin);
+    const cart = useSelector(state => state.cart);
+    const { cartItems } = cart;
     const { userInfo } = userSignin;
+    const [ reload, setReload ] = useState(false);
+
+    useEffect(() => {
+        if(reload) {
+            window.location.reload(false);
+            setReload(false)
+        }
+        return {
+
+        };
+    }, [reload]);
+
     const openMenu = () => {
         document.querySelector(".sidebar").classList.add("open");
     }
@@ -27,8 +42,10 @@ function App() {
 
     const signOutHandler = () => {
         dispatch(signOut());
+        setReload(true);
     }
 
+    console.log(userInfo);
     return (
         <BrowserRouter>
             <div className="grid-container">
@@ -37,19 +54,37 @@ function App() {
                         <button onClick={openMenu}>&#9776;</button>
                         <Link to="/">Shopify</Link>
                     </div>
+                    <div className="header">
+                        {userInfo && userInfo.type === "admin" && <span className="admin-display">Admin</span>}
+                    </div>
                     <div className="header-links">
-                        <Link to="/signin">Cart</Link>
-                        {/* <a href="cart.html">Cart</a> */}
+                        <Link to="/cart">Cart
+                        {cartItems.length > 0 && (
+                            <span className="badge">{cartItems.length}</span>
+                        )}
+                        </Link>
                         {
                             userInfo ? (
-                                <div className="dropdown">
-                                    <Link to="/profile">{userInfo.name}</Link>
-                                    <ul className="dropdown-content">
-                                        <Link to="/" onClick={signOutHandler}>Sign Out</Link>
+                                <div class="dropdown">
+                                    <ul>
+                                        <Link to="/profile">
+                                            {userInfo.name}
+                                        </Link>
                                     </ul>
+                                    <div className="dropdown-content">
+                                        {
+                                            userInfo.type === "admin" && 
+                                            <ul><Link to="/products" className="dropdown-item">Products</Link></ul>
+                                        }
+                                        {
+                                            userInfo.type === "admin" && 
+                                            <ul><Link to="/users" className="dropdown-item">Users</Link></ul>
+                                        }
+                                        <ul><Link to="/" className="dropdown-item" onClick={signOutHandler}>Sign Out</Link></ul>
+                                    </div>
                                 </div>
                             ) : (
-                                <Link to="/signin">Sign In</Link>                                
+                                <Link to="/signin">Sign In</Link>
                             )
                         }
                     </div>
@@ -91,3 +126,17 @@ function App() {
 }
 
 export default App;
+
+
+// {
+//     userInfo ? (                                
+//         <div className="dropdown">
+//             <Link to="/profile">{userInfo.name}</Link>                                    
+//             <ul className="dropdown-content">
+//                 <Link to="/" onClick={signOutHandler}>Sign Out</Link>
+//             </ul>
+//         </div>
+//     ) : (
+//         <Link to="/signin">Sign In</Link>                                
+//     )
+// }

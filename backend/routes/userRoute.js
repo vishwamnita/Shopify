@@ -7,8 +7,8 @@ const router = express.Router();
 router.get("/createadmin", async (req, res) => {
     try {
         const user = await User({
-            name: "Vishwam",
-            email: "vishwamnita@gmail.com",
+            name: "Ajay Singh",
+            email: "azeem.mnnit2020@gmail.com",
             password: "123456",
             type: "admin",
         });

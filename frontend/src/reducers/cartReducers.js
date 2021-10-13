@@ -5,7 +5,6 @@ function cartReducer(state = {cartItems: [], shipping: {}, payment: {} }, action
         case CART_ADD_ITEM:
             const  item = action.payload;
             const product = state.cartItems.find(x => x.product === item.product);
-            console.log(product);
             if(product) {
                 return { 
                     cartItems: 

@@ -15,7 +15,7 @@ function SigninScreen(props) {
 
     useEffect(() => {
         if(userInfo) {
-            props.history.push(redirect);
+            redirect === "cart" ? props.history.push(redirect + "/" + userInfo._id) : props.history.push(redirect);
         }
         //eslint-disable-next-line
     }, [userInfo]);

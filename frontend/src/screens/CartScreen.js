@@ -17,8 +17,7 @@ function CartScreen(props) {
         if(productId) {
             dispatch(addToCart(productId, qty));
         }
-        // eslint-disable-next-line
-    }, []);
+    }, [dispatch, productId, qty]);
 
     const removeFromCartHandler = (productId) => {
         dispatch(removeFromCart(productId));
@@ -45,23 +44,28 @@ function CartScreen(props) {
                     :
                     cartItems.map(item => {
                         return (
-                            <li>
+                            <li key={item.product}>
                                 <div className="cart-image">
-                                    <img src={item.image} alt="product" />
+                                    <Link to={"/product/" + item.product} className="link-color">
+                                        <img src={item.image} alt="product" />
+                                    </Link>
                                 </div>
                                 <div className="cart-name">
                                     <div>
-                                        <Link to={"/product/" + item.product}>
+                                        <Link to={"/product/" + item.product} className="link-color">
                                             {item.name}
                                         </Link>
                                     </div>
                                     <div>
                                         Qty:
                                         <select value={item.qty} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
+                                            {
+                                                Array.from(Array(item.countInStock).keys()).map((x) => {
+                                                    return <option key={x} value={x}>{x}</option>
+                                                })
+                                            }
                                         </select>
+                                        {" "}
                                         <button
                                         type="button" 
                                         className="button" 
