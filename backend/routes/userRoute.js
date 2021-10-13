@@ -1,14 +1,19 @@
 import express from "express";
 import User from "../models/userModel";
-import { getToken } from "../util";
+import { getToken, isAdmin, isAuth } from "../util";
 
 const router = express.Router();
+
+router.get("/", async (req, res) => {
+    const users = await User.find({});
+    res.send(users);
+})
 
 router.get("/createadmin", async (req, res) => {
     try {
         const user = await User({
-            name: "Ajay Singh",
-            email: "azeem.mnnit2020@gmail.com",
+            name: "Vishwam Singh",
+            email: "vishwam.mnnit2020@gmail.com",
             password: "123456",
             type: "admin",
         });
@@ -60,6 +65,16 @@ router.post("/register", async (req, res) => {
         });
     } else {
         res.status(401).send({msg: "Invalid User Data."});
+    }
+});
+
+router.delete("/:id", isAuth, isAdmin, async (req, res) => {
+    const userToDelete = await User.findById(req.params.id);
+    if(userToDelete) {
+        await userToDelete.remove();
+        res.send({ msg: "User Deleted." });
+    } else {
+        res.send({ msg: "Error in deleting user" });
     }
 });
 

@@ -12,6 +12,7 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import { signOut } from './actions/userActions';
 import { useEffect, useState } from 'react';
+import UsersScreen from './screens/UsersScreen';
 
 function App() {
 
@@ -45,7 +46,6 @@ function App() {
         setReload(true);
     }
 
-    console.log(userInfo);
     return (
         <BrowserRouter>
             <div className="grid-container">
@@ -65,7 +65,7 @@ function App() {
                         </Link>
                         {
                             userInfo ? (
-                                <div class="dropdown">
+                                <div className="dropdown">
                                     <ul>
                                         <Link to="/profile">
                                             {userInfo.name}
@@ -104,6 +104,7 @@ function App() {
                 <main className="main">
                     <div className="content">
 
+                        <Route path="/users" component={UsersScreen} />
                         <Route path="/signout" component={HomeScreen} />
                         <Route path="/placeorder" component={PlaceOrderScreen} />
                         <Route path="/payment" component={PaymentScreen} />

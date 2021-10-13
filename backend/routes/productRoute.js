@@ -62,9 +62,9 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
     const productToDelete = await Product.findById(req.params.id);
     if(productToDelete) {
         await productToDelete.remove();
-        res.send({msg: "Product Deleted."});
+        res.send({ msg: "Product Deleted." });
     } else {
-        res.send({msg: "Error in deletion."})
+        res.send({ msg: "Error in deletion." })
     }
 });
 

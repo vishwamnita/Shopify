@@ -17,6 +17,10 @@ select {
   padding: 1rem;
 }
 
+li {
+  list-style-type: none;
+}
+
 .full-width {
   width: 100%;
 }
@@ -381,6 +385,10 @@ textarea {
 
 .table {
   width: 100%;
+}
+
+.enlarge {
+  min-height: 2rem;
 }
 
 th {

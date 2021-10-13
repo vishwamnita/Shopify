@@ -6,10 +6,10 @@ const listProducts = () => async (dispatch) => {
     try {
         dispatch({type: PRODUCT_LIST_REQUEST});
         const { data } = await Axios.get("/api/products");
-        dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
+        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     }
     catch(error) {
-        dispatch({type: PRODUCT_LIST_FAIL, payload: error.message});
+        dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
     }
 }
 
@@ -41,15 +41,15 @@ const saveProduct = (product) => async (dispatch, getState) => {
 const deleteProduct = (productId) => async (dispatch, getState) => {
     try {
         const { userSignin: { userInfo } } = getState();
-        dispatch({type: PRODUCT_DELETE_REQUEST, payload: productId});
+        dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
         const { data } = await Axios.delete("/api/products/" + productId, {
             headers: {
                 Authorization: "Bearer" + userInfo.token,
             }
         });
-        dispatch({type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
+        dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
     } catch (error) {
-        dispatch({type: PRODUCT_DELETE_FAIL, payload: error.message });
+        dispatch({ type: PRODUCT_DELETE_FAIL, payload: error.message });
     }
 }
 
