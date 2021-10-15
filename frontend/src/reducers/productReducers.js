@@ -2,7 +2,7 @@ import { PRODUCT_DELETE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PR
     PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS } from "../constants/productConstants";
 
 
-function productListReducer(state = {products: []}, action) {
+export function productListReducer(state = {products: []}, action) {
     switch(action.type) {
         case PRODUCT_LIST_REQUEST:
             return { loading: true, products: [] };
@@ -15,7 +15,7 @@ function productListReducer(state = {products: []}, action) {
     }
 }
 
-function productSaveReducer(state = {product: {}}, action) {
+export function productSaveReducer(state = {product: {}}, action) {
     switch(action.type) {
         case PRODUCT_SAVE_REQUEST:
             return { loading: true };
@@ -28,7 +28,7 @@ function productSaveReducer(state = {product: {}}, action) {
     }
 }
 
-function productDeleteReducer(state = {product: {}}, action) {
+export function productDeleteReducer(state = {product: {}}, action) {
     switch(action.type) {
         case PRODUCT_DELETE_REQUEST:
             return { loading: true };
@@ -41,7 +41,7 @@ function productDeleteReducer(state = {product: {}}, action) {
     }
 }
 
-function productDetailsReducer(state = {product: {}}, action) {
+export function productDetailsReducer(state = {product: {}}, action) {
     switch(action.type) {
         case PRODUCT_DETAILS_REQUEST:
             return { loading: true };
@@ -53,10 +53,3 @@ function productDetailsReducer(state = {product: {}}, action) {
             return state;        
     }
 }
-
-export { 
-    productListReducer, 
-    productDetailsReducer,
-    productSaveReducer,
-    productDeleteReducer
-};

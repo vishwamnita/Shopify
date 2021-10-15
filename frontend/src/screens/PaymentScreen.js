@@ -9,7 +9,6 @@ function PaymentScreen(props) {
     const { shippingAddress: shipping } = cart;
     const [paymentMethod, setPaymentMethod] = useState("");
 
-    console.log(shipping);
     if(!shipping.address) {
         props.history.push("shipping");
     }
@@ -18,7 +17,7 @@ function PaymentScreen(props) {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(savePayment({ paymentMethod }));
+        dispatch(savePayment(paymentMethod));
         props.history.push("placeorder");
     }
 

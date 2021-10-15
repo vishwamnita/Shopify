@@ -10,6 +10,7 @@ import ProductsScreen from './screens/ProductsScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from "./screens/OrderScreen";
 import { signOut } from './actions/userActions';
 import { useEffect, useState } from 'react';
 import UsersScreen from './screens/UsersScreen';
@@ -104,6 +105,7 @@ function App() {
                 <main className="main">
                     <div className="content">
 
+                        <Route path="/orders/:id" component={OrderScreen} />
                         <Route path="/users" component={UsersScreen} />
                         <Route path="/signout" component={HomeScreen} />
                         <Route path="/placeorder" component={PlaceOrderScreen} />

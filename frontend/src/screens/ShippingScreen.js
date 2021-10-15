@@ -1,20 +1,26 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveShipping } from "../actions/cartActions";
 import CheckoutSteps from "../components/CheckoutSteps";
 
 function ShippingScreen(props) {
     
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
     const [country, setCountry] = useState("");
 
+    if(!userInfo._id) {
+        props.history.push("signin?redirect=payment");
+    }
     const dispatch = useDispatch();
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(saveShipping({ address, city, pinCode, country }));
+        const fullName = userInfo.name;
+        dispatch(saveShipping({ address, city, pinCode, country, fullName }));
         props.history.push("payment");
     }
 

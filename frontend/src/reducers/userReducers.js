@@ -1,6 +1,6 @@
 import { USER_DELETE_FAIL, USER_DELETE_REQUEST, USER_DELETE_SUCCESS, USER_LIST_FAIL, USER_LIST_REQUEST, USER_LIST_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from "../constants/userConstants";
 
-function userListReducer(state = { users: [] }, action) {
+export function userListReducer(state = { users: [] }, action) {
     switch(action.type) {
         case USER_LIST_REQUEST:
             return { loading: true, users: [] };
@@ -13,7 +13,7 @@ function userListReducer(state = { users: [] }, action) {
     }
 }
 
-function userSigninReducer(state = {}, action) {
+export function userSigninReducer(state = {}, action) {
     switch(action.type) {
         case USER_SIGNIN_REQUEST:
             return { loading: true };
@@ -28,7 +28,7 @@ function userSigninReducer(state = {}, action) {
     }
 }
 
-function userRegisterReducer(state = {}, action) {
+export function userRegisterReducer(state = {}, action) {
     switch(action.type) {
         case USER_REGISTER_REQUEST:
             return { loading: true };
@@ -41,7 +41,7 @@ function userRegisterReducer(state = {}, action) {
     }
 }
 
-function userDeleteReducer(state = {user: {}}, action) {
+export function userDeleteReducer(state = {user: {}}, action) {
     switch(action.type) {
         case USER_DELETE_REQUEST:
             return { loading: true };
@@ -52,11 +52,4 @@ function userDeleteReducer(state = {user: {}}, action) {
         default:
             return state;
     }
-}
-
-export { 
-    userSigninReducer,
-    userRegisterReducer,
-    userListReducer,
-    userDeleteReducer,
 }
