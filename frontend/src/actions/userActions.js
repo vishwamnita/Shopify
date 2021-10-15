@@ -42,6 +42,8 @@ const signOut = () => (dispatch) => {
     dispatch({ type: USER_SIGNOUT });
     Cookie.remove("userInfo");
     Cookie.remove("cartItems");
+    Cookie.remove("shippingAddress");
+    Cookie.remove("paymentMethod");
 }
 
 const deleteUser = (userId) => async (dispatch, getState) => {

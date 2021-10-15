@@ -6,7 +6,7 @@ import CheckoutSteps from "../components/CheckoutSteps";
 function PlaceOrderScreen(props) {
 
     const cart = useSelector(state => state.cart);
-    const { cartItems, shipping, payment } = cart;
+    const { cartItems, shippingAddress: shipping, paymentMethod: payment } = cart;
 
     if(!shipping.address) {
         props.history.push("/shipping");
@@ -30,6 +30,7 @@ function PlaceOrderScreen(props) {
     }, []);
 
     const checkOutHandler = () => {
+        if(shipping)
         props.history.push("/signin?redirect=shipping");
     }
 
@@ -40,14 +41,14 @@ function PlaceOrderScreen(props) {
                 <div>
                     <h3>shipping</h3>
                     <div>
-                        {cart.shipping.address}, {cart.shipping.city},
-                        {cart.shipping.pinCode}, {cart.shipping.country}
+                        {shipping.address}, {shipping.city},
+                        {shipping.pinCode}, {shipping.country}
                     </div>
                 </div>
                 <div>
                     <h3>Payment</h3>
                     <div>
-                        Payment Method: {cart.payment.paymentMethod}
+                        Payment Method: {payment.paymentMethod}
                     </div>
                 </div>
                 <div>
@@ -66,9 +67,11 @@ function PlaceOrderScreen(props) {
                             :
                             cartItems.map(item => {
                                 return (
-                                    <li>
+                                    <li key={item.product}>
                                         <div className="cart-image">
-                                            <img src={item.image} alt="product" />
+                                            <Link to={"/product/" + item.product}>
+                                                <img src={item.image} alt="product" />
+                                            </Link>
                                         </div>
                                         <div className="cart-name">
                                             <div>

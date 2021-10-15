@@ -1,5 +1,5 @@
 import Axios from "axios";
-import Cookies from "js-cookie";
+import Cookie from "js-cookie";
 import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT, CART_SAVE_SHIPPING } from "../constants/cartConstants";
 
 const addToCart = (productId, qty) => async (dispatch, getState) => {
@@ -16,7 +16,7 @@ const addToCart = (productId, qty) => async (dispatch, getState) => {
             }
         });
         const { cart: { cartItems } } = getState();
-        Cookies.set("cartItems", JSON.stringify(cartItems));
+        Cookie.set("cartItems", JSON.stringify(cartItems));
     } catch (error) {
         
     }
@@ -27,7 +27,7 @@ const removeFromCart = (productId) => async (dispatch, getState) => {
         dispatch({type: CART_REMOVE_ITEM, payload: productId});
 
         const { cart: { cartItems } } = getState();
-        Cookies.set("cartItems", JSON.stringify(cartItems));
+        Cookie.set("cartItems", JSON.stringify(cartItems));
     } catch (error) {
         
     }
@@ -35,10 +35,12 @@ const removeFromCart = (productId) => async (dispatch, getState) => {
 
 const saveShipping = (data) => (dispatch) => {
     dispatch({ type: CART_SAVE_SHIPPING, payload: data });
+    Cookie.set("shippingAddress", JSON.stringify(data));
 }
 
 const savePayment = (data) => (dispatch) => {
     dispatch({ type: CART_SAVE_PAYMENT, payload: data });
+    Cookie.set("paymentMethod", JSON.stringify(data));
 }
 export { 
     addToCart, 

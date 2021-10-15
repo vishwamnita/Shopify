@@ -8,7 +8,18 @@ import { userDeleteReducer, userListReducer, userRegisterReducer, userSigninRedu
 const cartItems = (Cookie.get("cartItems") && JSON.parse(Cookie.get("cartItems"))) || [];
 const userInfo = (Cookie.get("userInfo") && JSON.parse(Cookie.get("userInfo"))) || "";
 
-const initialState = { cart : { cartItems, shipping: {}, payment: {} }, userSignin : { userInfo } };
+const initialState = { 
+    cart : { 
+            cartItems, 
+            shippingAddress : Cookie.get("shippingAddress")
+            ? JSON.parse(Cookie.get("shippingAddress"))
+            : {},
+            paymentMethod: Cookie.get("paymentMethod")
+            ? JSON.parse(Cookie.get("paymentMethod"))
+            : "Cash On Delivery"
+        }, 
+        userSignin : { userInfo } 
+    };
 
 const reducer = combineReducers({
     productList: productListReducer,

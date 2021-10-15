@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { savePayment } from "../actions/cartActions";
 import CheckoutSteps from "../components/CheckoutSteps";
 
 function PaymentScreen(props) {
     
+    const cart = useSelector(state => state.cart);
+    const { shippingAddress: shipping } = cart;
     const [paymentMethod, setPaymentMethod] = useState("");
+
+    console.log(shipping);
+    if(!shipping.address) {
+        props.history.push("shipping");
+    }
 
     const dispatch = useDispatch();
 
@@ -24,23 +31,39 @@ function PaymentScreen(props) {
                         <h2>Payment</h2>
                     </li>
                     <li>
-                        <div>
+                        <div className="big-font">
                             <input 
                             type="radio" 
                             name="paymentMethod" 
-                            id="paymentMethod"
-                            value="phonpe"
+                            id="cashOnDelivery"
+                            value="Cash On Delivery"
                             onChange={(e) => setPaymentMethod(e.target.value)}
                             >
                             </input>
-                            <label htmlFor="paymentMethod">
+                            <label htmlFor="cashOnDelivery">
+                                Cash On Delivery
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div className="big-font">
+                            <input 
+                            type="radio" 
+                            name="paymentMethod" 
+                            id="phonpe"
+                            value="Phonpe"
+                            required
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                            >
+                            </input>
+                            <label htmlFor="phonpe">
                                 Phonpe
                             </label>
                         </div>
                     </li>
                     
                     <li>
-                        <button className="button primary">Continue</button>
+                        <button type="submit" className="button primary">Continue</button>
                     </li>
                 </ul>
             </form>

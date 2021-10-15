@@ -367,6 +367,10 @@ input {
   border-radius: 0.5rem;
 }
 
+.big-font {
+  font-size: 2rem;
+}
+
 /* Create Product */
 
 textarea {
