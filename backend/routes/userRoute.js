@@ -25,6 +25,15 @@ router.get("/createadmin", async (req, res) => {
     }
 });
 
+router.get("/:id", async(req, res) => {
+    const user = await User.findById(req.params.id);
+    if(user) {
+        res.send(user);
+    } else {
+        res.status(404).send({ msg: "User not found." });
+    }
+})
+
 router.post("/signin", async (req, res) => {
     const signinUser = await User.findOne({
         email: req.body.email,

@@ -390,18 +390,25 @@ textarea {
 
 .table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 .enlarge {
   min-height: 2rem;
 }
 
-th {
-  text-align: left;
-}
-
 tbody>tr:nth-child(odd) {
   background-color: #f0f0f0;
+}
+
+.table td, .table th {
+  text-align: left;
+  border: 0.1rem #e4e4e4 solid;
+  padding: 0.5rem;
+}
+
+.table button {
+  margin: 0 0.2rem;
 }
 
 /* Check out steps */

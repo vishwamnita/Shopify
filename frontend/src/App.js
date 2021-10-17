@@ -15,6 +15,7 @@ import { signOut } from './actions/userActions';
 import { useEffect, useState } from 'react';
 import UsersScreen from './screens/UsersScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ProfileScreen from "./screens/ProfileScreen";
 
 function App() {
 
@@ -69,7 +70,8 @@ function App() {
                             userInfo ? (
                                 <div className="dropdown">
                                     <Link to="/profile">
-                                        {userInfo.name}
+                                        {userInfo.name + " "}
+                                        <i className="fa fa-caret-down"></i>
                                     </Link>
                                     <ul className="dropdown-content">
                                         <li>
@@ -115,6 +117,7 @@ function App() {
                 <main className="main">
                     <div className="content">
 
+                        <Route path="/profile" component={ProfileScreen} />
                         <Route path="/orderhistory" component={OrderHistoryScreen} />
                         <Route path="/orders/:id" component={OrderScreen} />
                         <Route path="/users" component={UsersScreen} />

@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import Cookie from "js-cookie";
 import { cartReducer } from "./reducers/cartReducers";
 import { productListReducer, productDetailsReducer, productSaveReducer, productDeleteReducer } from "./reducers/productReducers";
-import { userDeleteReducer, userListReducer, userRegisterReducer, userSigninReducer } from "./reducers/userReducers";
+import { userDeleteReducer, userDetailsReducer, userListReducer, userRegisterReducer, userSigninReducer } from "./reducers/userReducers";
 import { orderCreateReducer, orderDetailsReducer, orderUserListReducer } from "./reducers/orderReducers";
 
 const cartItems = (Cookie.get("cartItems") && JSON.parse(Cookie.get("cartItems"))) || [];
@@ -35,6 +35,7 @@ const reducer = combineReducers({
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
     orderUserList: orderUserListReducer,
+    userDetails: userDetailsReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
