@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import UsersScreen from './screens/UsersScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfileScreen from "./screens/ProfileScreen";
+import OrdersScreen from "./screens/OrdersScreen";
 
 function App() {
 
@@ -75,22 +76,10 @@ function App() {
                                     </Link>
                                     <ul className="dropdown-content">
                                         <li>
-                                            {
-                                                userInfo.type === "admin" && 
-                                                <Link to="/products" className="dropdown-item">Products</Link>
-                                            }
-                                        </li>
-                                        <li>
-                                            {
-                                                userInfo.type === "admin" && 
-                                                <Link to="/users" className="dropdown-item">Users</Link>
-                                            }
-                                        </li>
-                                        <li>
                                             <Link to="/orderhistory">Order History</Link>
                                         </li>
                                         <li>
-                                            <Link to="/" className="dropdown-item" onClick={signOutHandler}>
+                                            <Link to="/" onClick={signOutHandler}>
                                                 Sign Out
                                             </Link>
                                         </li>
@@ -98,6 +87,30 @@ function App() {
                                 </div>
                             ) : (
                                 <Link to="/signin">Sign In</Link>
+                            )
+                        }
+                        {
+                            userInfo && userInfo.type === "admin" && (
+                                <div className="dropdown">
+                                    <Link to="#admin">Admin { " " } <i className="fa fa-caret-down"></i></Link>
+                                    <ul className="dropdown-content">
+                                        <li>
+                                            <Link to="/dashboard">Dashboard</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/products">Products</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/users">Users</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/allorders">Orders</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/support">Support</Link>
+                                        </li>
+                                    </ul>
+                                </div>
                             )
                         }
                     </div>
@@ -117,6 +130,7 @@ function App() {
                 <main className="main">
                     <div className="content">
 
+                        <Route path="/allorders" component={OrdersScreen} />
                         <Route path="/profile" component={ProfileScreen} />
                         <Route path="/orderhistory" component={OrderHistoryScreen} />
                         <Route path="/orders/:id" component={OrderScreen} />
@@ -143,17 +157,3 @@ function App() {
 }
 
 export default App;
-
-
-// {
-//     userInfo ? (                                
-//         <div className="dropdown">
-//             <Link to="/profile">{userInfo.name}</Link>                                    
-//             <ul className="dropdown-content">
-//                 <Link to="/" onClick={signOutHandler}>Sign Out</Link>
-//             </ul>
-//         </div>
-//     ) : (
-//         <Link to="/signin">Sign In</Link>                                
-//     )
-// }

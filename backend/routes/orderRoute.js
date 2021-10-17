@@ -1,9 +1,14 @@
 import express from "express";
 import Order from "../models/orderModel";
 import mongoose from "mongoose";
-import { isAuth } from "../util";
+import { isAdmin, isAuth } from "../util";
 
 const router = express.Router();
+
+router.get("/all", isAuth, isAdmin, async (req, res) => {
+    const orders = await Order.find({});
+    res.send(orders);
+});
 
 router.get("/user", isAuth, async (req, res) => {
     const orders = await Order.find({ user: req.user._id });
