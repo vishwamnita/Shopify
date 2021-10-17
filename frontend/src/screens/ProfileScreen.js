@@ -1,8 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { detailsUser } from "../actions/userActions";
+import { detailsUser, updateUserProfile } from "../actions/userActions";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 function ProfileScreen(props) {
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } =  userSignin;
@@ -10,15 +16,27 @@ function ProfileScreen(props) {
     const userDetails = useSelector(state => state.userDetails);
     const { loading, user, error } = userDetails;
 
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile);
+    const { loading: loadingUpdate, success: successUpdate, error: errorUpdate } = userUpdateProfile;
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(detailsUser(userInfo._id))
-    }, [dispatch, userInfo._id]);
+        if(!user) {
+            dispatch({ type: USER_UPDATE_PROFILE_RESET });
+            dispatch(detailsUser(userInfo._id));
+        } else {
+            setName(user.name);
+            setEmail(user.email);
+        }
+    }, [dispatch, userInfo._id, user]);
 
     const sumbmitHandler = (e) => {
         e.preventDefault();
-
+        if(password !== confirmPassword) {
+            alert("Password and Confirm password do not match");
+        }
+        dispatch(updateUserProfile({ userId: user._id, name, email, password }));
     }
 
     return (
@@ -30,25 +48,30 @@ function ProfileScreen(props) {
                     </li>
                     {loading && <div>Loading...</div>}
                     {error && <div>{error}</div>}
+                    {loadingUpdate && <div>Loading...</div>}
+                    {errorUpdate && <div>{errorUpdate}</div>}
+                    {successUpdate && <div>Profile Updated Successfully</div>}
                     {
                         !loading && ( 
                         <div>
                             <li>
-                                <labe htmlFor="name">Name</labe>
+                                <label htmlFor="name">Name</label>
                                 <input 
                                     type="text" 
                                     id="name" 
-                                    placeholder="Enter Name" 
-                                    value={user.name}>                                        
+                                    placeholder="Enter Name"
+                                    value={name} 
+                                    onChange={(e) => setName(e.target.value)}>
                                 </input>
                             </li>
                             <li>
                                 <label htmlFor="email">Email</label>
                                 <input 
-                                    type="text" 
+                                    type="email" 
                                     id="email" 
                                     placeholder="Enter Email" 
-                                    value={user.email}>
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}>
                                 </input>
                             </li>
                             <li>
@@ -57,7 +80,7 @@ function ProfileScreen(props) {
                                     type="password" 
                                     id="password" 
                                     placeholder="Enter Password" 
-                                    value={user.password}>
+                                    onChange={(e) => setPassword(e.target.value)}>
                                 </input>
                             </li>
                             <li>
@@ -65,7 +88,8 @@ function ProfileScreen(props) {
                                 <input 
                                     type="password" 
                                     id="confirmPassword" 
-                                    placeholder="Re-enter Password">
+                                    placeholder="Re-enter Password"
+                                    onChange={(e) => setConfirmPassword(e.target.value)}>
                                 </input>
                             </li>
                             <li>

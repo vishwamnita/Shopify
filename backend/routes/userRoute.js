@@ -87,4 +87,24 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
     }
 });
 
+router.put("/profile", isAuth, async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if(user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        if(req.body.password) {
+            user.password = req.body.password;
+        }
+
+        const updatedUser = await user.save()
+        res.send({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            type: updatedUser.type,
+            token: getToken(updatedUser),
+        });
+    }
+});
+
 export default router;
