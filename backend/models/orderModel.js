@@ -30,6 +30,7 @@ const orderSchema = mongoose.Schema(
             ref: "User",
             required: true,
         },
+        createdAt: { type: Date, required: true },
         isPaid: { type: Boolean, default: false },
         paidAt: { type: Date },
         isDelivered: { type: Boolean, default: false },

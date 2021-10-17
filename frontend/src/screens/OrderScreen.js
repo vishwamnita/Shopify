@@ -26,8 +26,8 @@ function OrderScreen(props) {
                     <div>
                         <h3>Shipping</h3>
                         <div>
-                            <p>
                             <h4>{ order.shippingAddress.fullName }</h4>
+                            <p>
                             { order.shippingAddress.address }, { order.shippingAddress.city }, 
                             {" "}{ order.shippingAddress.pinCode }, { order.shippingAddress.country }
                             </p>

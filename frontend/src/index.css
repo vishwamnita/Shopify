@@ -42,6 +42,7 @@ li {
 }
 
 .header {
+  font-size: 2rem;
   grid-area: header;
   background-color: #203040;
   color: #ffffff;
@@ -53,7 +54,7 @@ li {
 
 .brand a {
   color: #ffffff;
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
   text-decoration: none;
 }
@@ -337,6 +338,7 @@ a:hover {
 /* forms */
 
 .form {
+  font-size: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -485,17 +487,23 @@ tbody>tr:nth-child(odd) {
   display: none;
   position: absolute;
   right: 0;
-  min-width: 12rem;
+  min-width: 15rem;
   padding: 1rem;
-  z-index: 1rem;
+  z-index: 2rem;
   background-color: #203040;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  margin: 0;
+  margin-top: 0.4rem;
+  border-radius: 0.5rem;
 }
 
 .dropdown-content ul {
   padding: 1rem;
+  margin-top: 0;
   text-decoration: none;
-  display: block;
+}
+
+.dropdown-content li {
+  padding-bottom: 1rem;
 }
 
 .dropdown:hover .dropdown-content{

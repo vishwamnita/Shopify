@@ -14,6 +14,7 @@ import OrderScreen from "./screens/OrderScreen";
 import { signOut } from './actions/userActions';
 import { useEffect, useState } from 'react';
 import UsersScreen from './screens/UsersScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
 
 function App() {
 
@@ -67,22 +68,31 @@ function App() {
                         {
                             userInfo ? (
                                 <div className="dropdown">
-                                    <ul>
-                                        <Link to="/profile">
-                                            {userInfo.name}
-                                        </Link>
+                                    <Link to="/profile">
+                                        {userInfo.name}
+                                    </Link>
+                                    <ul className="dropdown-content">
+                                        <li>
+                                            {
+                                                userInfo.type === "admin" && 
+                                                <Link to="/products" className="dropdown-item">Products</Link>
+                                            }
+                                        </li>
+                                        <li>
+                                            {
+                                                userInfo.type === "admin" && 
+                                                <Link to="/users" className="dropdown-item">Users</Link>
+                                            }
+                                        </li>
+                                        <li>
+                                            <Link to="/orderhistory">Order History</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/" className="dropdown-item" onClick={signOutHandler}>
+                                                Sign Out
+                                            </Link>
+                                        </li>
                                     </ul>
-                                    <div className="dropdown-content">
-                                        {
-                                            userInfo.type === "admin" && 
-                                            <ul><Link to="/products" className="dropdown-item">Products</Link></ul>
-                                        }
-                                        {
-                                            userInfo.type === "admin" && 
-                                            <ul><Link to="/users" className="dropdown-item">Users</Link></ul>
-                                        }
-                                        <ul><Link to="/" className="dropdown-item" onClick={signOutHandler}>Sign Out</Link></ul>
-                                    </div>
                                 </div>
                             ) : (
                                 <Link to="/signin">Sign In</Link>
@@ -105,6 +115,7 @@ function App() {
                 <main className="main">
                     <div className="content">
 
+                        <Route path="/orderhistory" component={OrderHistoryScreen} />
                         <Route path="/orders/:id" component={OrderScreen} />
                         <Route path="/users" component={UsersScreen} />
                         <Route path="/signout" component={HomeScreen} />

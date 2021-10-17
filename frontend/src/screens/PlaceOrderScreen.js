@@ -32,7 +32,8 @@ function PlaceOrderScreen(props) {
 
 
     const placeOrderHandler = () => {
-        dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
+        cart.createdAt = Date.now();
+        dispatch(createOrder({ ...cart, orderItems: cart.cartItems, }));
     }
 
     useEffect(() => {
@@ -42,11 +43,11 @@ function PlaceOrderScreen(props) {
         }
     }, [dispatch, order, success, props.history]);
 
-    const checkOutHandler = () => {
-        if(!shipping.address) {
-            props.history.push("/signin?redirect=shipping");
-        }
-    }
+    // const checkOutHandler = () => {
+    //     if(!shipping.address) {
+    //         props.history.push("/signin?redirect=shipping");
+    //     }
+    // }
 
     return <div>
         <CheckoutSteps step1 step2 step3 step4 ></CheckoutSteps>

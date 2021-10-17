@@ -8,7 +8,7 @@ function UsersScreen(props) {
     const { loading, users, error } = userList;
 
     const userDelete = useSelector(state => state.userDelete);
-    const { loading: loadingDelete, success: successDelete, error: errorDelete } = userDelete;
+    const { success: successDelete } = userDelete;
 
     const dispatch = useDispatch();
 

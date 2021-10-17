@@ -1,8 +1,14 @@
 import express from "express";
 import Order from "../models/orderModel";
+import mongoose from "mongoose";
 import { isAuth } from "../util";
 
 const router = express.Router();
+
+router.get("/user", isAuth, async (req, res) => {
+    const orders = await Order.find({ user: req.user._id });
+    res.send(orders);
+});
 
 router.post("/", isAuth, async (req, res) => {
     if(req.body.orderItems.length === 0) {
@@ -16,9 +22,9 @@ router.post("/", isAuth, async (req, res) => {
             taxPrice: req.body.taxPrice,
             shippingPrice: req.body.shippingPrice,
             totalPrice: req.body.totalPrice,
+            createdAt: req.body.createdAt,
             user: req.user._id,
         });
-
         const createdOrder = await order.save();
         res.status(201).send(createdOrder);
     }
@@ -32,5 +38,6 @@ router.get("/:id", isAuth, async (req, res) => {
         res.status(404).send({ msg: "Order not found." });
     }
 });
+
 
 export default router;
