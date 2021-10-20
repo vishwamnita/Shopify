@@ -4,12 +4,23 @@ import { listUsers, deleteUser } from "../actions/userActions";
 
 function UsersScreen(props) {
 
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
+
     const userList = useSelector(state => state.userList);
     const { loading, users, error } = userList;
-
+    
     const userDelete = useSelector(state => state.userDelete);
     const { success: successDelete } = userDelete;
 
+    const check = (type, userType) => {
+        if(type === "ceo" && userType !== "ceo")
+            return true;
+        if(type === "admin" && userType !== "ceo" && userType !== "admin")
+            return true;
+        return false;
+    }
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,8 +47,9 @@ function UsersScreen(props) {
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>EMAIL</th>
-                        <th>USER TYPE</th>
+                        <th>Email</th>
+                        <th>User Type</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +62,7 @@ function UsersScreen(props) {
                             <td>{user.type}</td>
                             <td>
                                 {
-                                    user.type !== "admin" &&
+                                    check(userInfo.type, user.type) &&
                                     <button className="button" onClick={() => deleteHandler(user)}>Delete</button>
                                 }
                             </td>

@@ -17,6 +17,12 @@ import UsersScreen from './screens/UsersScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfileScreen from "./screens/ProfileScreen";
 import OrdersScreen from "./screens/OrdersScreen";
+import AdminMenu from "./components/AdminMenu";
+import UserMenu from "./components/UserMenu";
+import CeoMenu from "./components/CeoMenu";
+import SellerMenu from "./components/SellerMenu";
+import CreateUserScreen from './screens/CreateUserScreen';
+import DashboardScreen from "./screens/DashboardScreen";
 
 function App() {
 
@@ -59,7 +65,7 @@ function App() {
                         <Link to="/">Shopify</Link>
                     </div>
                     <div className="header">
-                        {userInfo && userInfo.type === "admin" && <span className="admin-display">Admin</span>}
+                        {userInfo && <span className="admin-display">{userInfo.type.toUpperCase()}</span>}
                     </div>
                     <div className="header-links">
                         <Link to="/cart">Cart
@@ -68,51 +74,18 @@ function App() {
                         )}
                         </Link>
                         {
-                            userInfo ? (
-                                <div className="dropdown">
-                                    <Link to="/profile">
-                                        {userInfo.name + " "}
-                                        <i className="fa fa-caret-down"></i>
-                                    </Link>
-                                    <ul className="dropdown-content">
-                                        <li>
-                                            <Link to="/orderhistory">Order History</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/" onClick={signOutHandler}>
-                                                Sign Out
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
+                            userInfo ? ( <UserMenu 
+                                name={userInfo.name} 
+                                signOutHandler={signOutHandler}
+                                >
+                            </UserMenu>
                             ) : (
                                 <Link to="/signin">Sign In</Link>
                             )
                         }
-                        {
-                            userInfo && userInfo.type === "admin" && (
-                                <div className="dropdown">
-                                    <Link to="#admin">Admin { " " } <i className="fa fa-caret-down"></i></Link>
-                                    <ul className="dropdown-content">
-                                        <li>
-                                            <Link to="/dashboard">Dashboard</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/products">Products</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/users">Users</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/allorders">Orders</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/support">Support</Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            )
-                        }
+                        { userInfo && userInfo.type === "seller" && <SellerMenu></SellerMenu>}
+                        { userInfo && userInfo.type === "admin" && <AdminMenu></AdminMenu> }
+                        { userInfo && userInfo.type === "ceo" && <CeoMenu></CeoMenu>}
                     </div>
                 </header>
                 <aside className="sidebar">
@@ -120,16 +93,18 @@ function App() {
                     <button className="sidebar-close-button" onClick={closeMenu}>x</button>
                     <ul>
                         <li>
-                            <a href="index.html">Pants</a>
+                            <a className="link-color" href="index.html">Pants</a>
                         </li>
                         <li>
-                            <a href="index.html">Shirts</a>
+                            <a className="link-color" href="index.html">Shirts</a>
                         </li>
                     </ul>
                 </aside>
                 <main className="main">
                     <div className="content">
 
+                        <Route path="/dashboard" component={DashboardScreen} />
+                        <Route path="/createUser" component={CreateUserScreen} />
                         <Route path="/allorders" component={OrdersScreen} />
                         <Route path="/profile" component={ProfileScreen} />
                         <Route path="/orderhistory" component={OrderHistoryScreen} />

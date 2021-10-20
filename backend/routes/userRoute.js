@@ -1,6 +1,6 @@
 import express from "express";
 import User from "../models/userModel";
-import { getToken, isAdmin, isAuth } from "../util";
+import { getToken, isAdmin, isAuth, isCeo, isAdminOrCeo } from "../util";
 
 const router = express.Router();
 
@@ -77,7 +77,7 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.delete("/:id", isAuth, isAdmin, async (req, res) => {
+router.delete("/:id", isAuth, isAdminOrCeo, async (req, res) => {
     const userToDelete = await User.findById(req.params.id);
     if(userToDelete) {
         await userToDelete.remove();
@@ -104,6 +104,29 @@ router.put("/profile", isAuth, async (req, res) => {
             type: updatedUser.type,
             token: getToken(updatedUser),
         });
+    }
+});
+
+router.post("/createUser", isAuth, isCeo, async (req, res) => {
+    const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        type: req.body.type,
+    });
+
+    const newUser = await user.save();
+
+    if(newUser) {
+        res.send({
+            _id: newUser._id,
+            email: newUser.email,
+            name: newUser.name,
+            type: newUser.type,
+            token: getToken(newUser)
+        });
+    } else {
+        res.status(401).send({msg: "Invalid User Data."});
     }
 });
 

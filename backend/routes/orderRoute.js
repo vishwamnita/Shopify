@@ -1,11 +1,11 @@
 import express from "express";
 import Order from "../models/orderModel";
 import mongoose from "mongoose";
-import { isAdmin, isAuth } from "../util";
+import { isAdmin, isAuth, isAdminOrCeo } from "../util";
 
 const router = express.Router();
 
-router.get("/all", isAuth, isAdmin, async (req, res) => {
+router.get("/all", isAuth, isAdminOrCeo, async (req, res) => {
     const orders = await Order.find({});
     res.send(orders);
 });

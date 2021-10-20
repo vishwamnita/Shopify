@@ -13,6 +13,9 @@ function ProductsScreen(props) {
     const [price, setPrice] = useState("");
     const [countInStock, setCountInStock] = useState("");
 
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
+
     const productList = useSelector(state => state.productList);
     const { products } = productList;
 
@@ -47,8 +50,9 @@ function ProductsScreen(props) {
 
     const submitHandler = (e) => {
         e.preventDefault();
+        const seller = userInfo._id;
         dispatch(saveProduct({ 
-            _id: id, name, image, brand, category, description, price, countInStock 
+            _id: id, name, image, brand, category, description, price, countInStock, seller
         }));
     }
 
@@ -183,6 +187,7 @@ function ProductsScreen(props) {
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Seller</th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Category</th>
@@ -195,6 +200,7 @@ function ProductsScreen(props) {
                         return ( 
                         <tr key={product._id}>
                             <td>{product._id}</td>
+                            <td>{product.seller}</td>
                             <td>{product.name}</td>
                             <td>{product.price}</td>
                             <td>{product.category}</td>

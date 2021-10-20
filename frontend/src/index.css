@@ -44,7 +44,7 @@ li {
 .header {
   font-size: 2rem;
   grid-area: header;
-  background-color: #203040;
+  background-color: #424242;
   color: #ffffff;
   display: flex;
   justify-content: space-between;
@@ -89,7 +89,7 @@ li {
 
 .footer {
   grid-area: footer;
-  background-color: #203040;
+  background-color: #424242;
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -165,11 +165,14 @@ a:hover {
 }
 
 .sidebar {
+  font-size: 2rem;
+  margin-top: 5.5rem;
   position: fixed;
   transition: all 0.5s;
   transform: translateX(-30rem);
   width: 30rem;
   background-color: #f0f0f0;
+  opacity: 0.9;
   height: 100%;
 }
 

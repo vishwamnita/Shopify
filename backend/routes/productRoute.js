@@ -1,6 +1,6 @@
 import express from "express";
 import Product from "../models/productModel";
-import { getToken, isAdmin, isAuth } from "../util";
+import { getToken, isAdmin, isAuth, isAdminOrCeo } from "../util";
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.post("/", isAuth, isAdmin, async (req, res) => {
+router.post("/", isAuth, isAdminOrCeo, async (req, res) => {
     const product = new Product({
         name: req.body.name,
         image: req.body.image,
@@ -29,6 +29,7 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
         rating: req.body.rating,
         numReviews: req.body.numReviews,
         countInStock: req.body.countInStock,
+        seller: req.body.seller,
     });
 
     const newProduct = await product.save();
@@ -38,7 +39,7 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
     return res.status(500).send({ msg: "Error in creating the product" });
 });
 
-router.put("/:id", isAuth, isAdmin, async (req, res) => {
+router.put("/:id", isAuth, isAdminOrCeo, async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if(product) {
@@ -58,7 +59,7 @@ router.put("/:id", isAuth, isAdmin, async (req, res) => {
     }
 });
 
-router.delete("/:id", isAuth, isAdmin, async (req, res) => {
+router.delete("/:id", isAuth, isAdminOrCeo, async (req, res) => {
     const productToDelete = await Product.findById(req.params.id);
     if(productToDelete) {
         await productToDelete.remove();

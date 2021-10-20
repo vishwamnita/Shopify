@@ -10,6 +10,11 @@ const productSchema = new mongoose.Schema({
     rating: { type: Number, default: 0, required: true },
     numReviews: { type: Number, default: 0, required: true },
     countInStock: { type: Number, default: 0, required: true },
+    seller: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    }
 });
 
 const productModel = mongoose.model("product", productSchema);
