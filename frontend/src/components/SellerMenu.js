@@ -10,7 +10,7 @@ function SellerMenu(props) {
                     <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
-                    <Link to="/products">Products</Link>
+                    <Link to={"/products/seller/" + props.id}>Products</Link>
                 </li>
             </ul>
         </div>

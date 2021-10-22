@@ -3,9 +3,8 @@ import Product from "../components/Product.js";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
 
-function HomeScreen() {
+function HomeScreen(props) {
 
-    // const [products, setProducts] = useState([]);
     const productList = useSelector(state => state.productList);
     const { products, loading, error } = productList;
     const dispatch = useDispatch();

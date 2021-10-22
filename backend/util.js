@@ -53,7 +53,16 @@ const isAdminOrCeo = (req, res, next) => {
         return next();
     }
     else {
-        return res.status(401).send({msg: "CEO token is not valid."});
+        return res.status(401).send({msg: "Token is not valid."});
+    }
+}
+
+const isAdminOrCeoOrSeller = (req, res, next) => {
+    if(req.user && (req.user.type === "ceo" || req.user.type === "admin" || req.user.type === "seller")) {
+        return next();
+    }
+    else {
+        return res.status(401).send({msg: "Token is not valid."});
     }
 }
 
@@ -62,5 +71,6 @@ export {
     isAuth,
     isAdmin,
     isCeo,
-    isAdminOrCeo
+    isAdminOrCeo,
+    isAdminOrCeoOrSeller,
 } ;

@@ -7,7 +7,7 @@ function CeoMenu(props) {
             <Link to="#admin">CEO { " " } <i className="fa fa-caret-down"></i></Link>
             <ul className="dropdown-content">
                 <li>
-                    <Link to="/products">Products</Link>
+                    <Link to="/products/all">Products</Link>
                 </li>
                 <li>
                     <Link to="/users">Users</Link>

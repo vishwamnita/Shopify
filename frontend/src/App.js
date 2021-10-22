@@ -83,7 +83,7 @@ function App() {
                                 <Link to="/signin">Sign In</Link>
                             )
                         }
-                        { userInfo && userInfo.type === "seller" && <SellerMenu></SellerMenu>}
+                        { userInfo && userInfo.type === "seller" && <SellerMenu id={userInfo._id}></SellerMenu>}
                         { userInfo && userInfo.type === "admin" && <AdminMenu></AdminMenu> }
                         { userInfo && userInfo.type === "ceo" && <CeoMenu></CeoMenu>}
                     </div>
@@ -114,7 +114,8 @@ function App() {
                         <Route path="/placeorder" component={PlaceOrderScreen} />
                         <Route path="/payment" component={PaymentScreen} />
                         <Route path="/shipping" component={ShippingScreen} />
-                        <Route path="/products" component={ProductsScreen} />
+                        <Route path="/products/all" component={ProductsScreen} />
+                        <Route path="/products/seller/:id" component={ProductsScreen} />
                         <Route path="/register" component={RegisterScreen} />                    
                         <Route path="/signin" component={SigninScreen} />
                         <Route path="/product/:id" component={ProductScreen} />

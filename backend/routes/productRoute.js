@@ -1,12 +1,24 @@
 import express from "express";
 import Product from "../models/productModel";
-import { getToken, isAdmin, isAuth, isAdminOrCeo } from "../util";
+import { getToken, isAdmin, isAuth, isAdminOrCeo, isAdminOrCeoOrSeller } from "../util";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/all", async (req, res) => {
+    console.log(req.params);
     const products = await Product.find({});
     res.send(products);
+});
+
+router.get("/seller/:id", async (req, res) => {
+    console.log(req.params.id);
+    if(req.params.id) {
+        const products = await Product.find({ seller: req.params.id });
+        res.send(products);
+    } else {
+        res.send({msg: "Invalid User"});
+    }
+    
 });
 
 router.get("/:id", async (req, res) => {
@@ -18,7 +30,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.post("/", isAuth, isAdminOrCeo, async (req, res) => {
+router.post("/", isAuth, isAdminOrCeoOrSeller, async (req, res) => {
     const product = new Product({
         name: req.body.name,
         image: req.body.image,
@@ -39,7 +51,7 @@ router.post("/", isAuth, isAdminOrCeo, async (req, res) => {
     return res.status(500).send({ msg: "Error in creating the product" });
 });
 
-router.put("/:id", isAuth, isAdminOrCeo, async (req, res) => {
+router.put("/:id", isAuth, isAdminOrCeoOrSeller, async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if(product) {
@@ -59,7 +71,7 @@ router.put("/:id", isAuth, isAdminOrCeo, async (req, res) => {
     }
 });
 
-router.delete("/:id", isAuth, isAdminOrCeo, async (req, res) => {
+router.delete("/:id", isAuth, isAdminOrCeoOrSeller, async (req, res) => {
     const productToDelete = await Product.findById(req.params.id);
     if(productToDelete) {
         await productToDelete.remove();

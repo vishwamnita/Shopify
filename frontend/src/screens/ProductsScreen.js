@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts, saveProduct, deleteProduct } from "../actions/productActions";
+import {  listProducts, saveProduct, deleteProduct } from "../actions/productActions";
 
 function ProductsScreen(props) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -31,8 +31,7 @@ function ProductsScreen(props) {
         if(successSave) {
             setModalVisible(false);
         }
-
-        dispatch(listProducts())
+        dispatch(listProducts({ id: userInfo._id, type: userInfo.type }));
         //eslint-disable-next-line
     }, [successSave, successDelete]);
 
@@ -196,7 +195,7 @@ function ProductsScreen(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map(product => {
+                    {products && products.map(product => {
                         return ( 
                         <tr key={product._id}>
                             <td>{product._id}</td>
@@ -205,11 +204,12 @@ function ProductsScreen(props) {
                             <td>{product.price}</td>
                             <td>{product.category}</td>
                             <td>{product.brand}</td>
-                            <td>
+                            {((userInfo.type === "ceo" || userInfo.type === "admin" || userInfo.type === "seller") 
+                                && (<td>
                                 <button className="button" onClick={() => openModal(product)}>Edit</button>
                                 {" "}
                                 <button className="button" onClick={() => deleteHandler(product)}>Delete</button>
-                            </td>
+                            </td>))}
                         </tr>)
                     })}
                 </tbody>
