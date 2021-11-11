@@ -27,7 +27,6 @@ const isAuth = (req, res, next) => {
     } else {
         return res.status(401).send({msg: "Token is not supplied."});
     }
-
 }
 
 const isAdmin = (req, res, next) => {

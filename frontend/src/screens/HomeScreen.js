@@ -19,7 +19,9 @@ function HomeScreen(props) {
 
     return loading ? <div>Loading...</div> :
             error ? <div>{error}</div> : 
-            (<ul className="products">
+            (<div>
+            <h3 className="purpose"><i>Its and exclusive site just for men's apparel.</i></h3>
+            <ul className="products">
                 {products.map(product =>
                     <Product 
                         key={product._id}
@@ -32,7 +34,8 @@ function HomeScreen(props) {
                         numReviews={product.numReviews}
                     />
                 )}
-            </ul>);
+            </ul>
+            </div>);
 }
 
 export default HomeScreen;

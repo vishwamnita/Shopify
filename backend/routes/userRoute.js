@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     const users = await User.find({});
     res.send(users);
-})
+});
 
 router.get("/createadmin", async (req, res) => {
     try {

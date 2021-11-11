@@ -519,3 +519,10 @@ tbody>tr:nth-child(odd) {
 .dropdown:hover .dropdown-content{
   display: block;
 }
+
+.purpose {
+  color: #808080;
+  font-size: 3rem;
+  font-weight: 400;
+  text-align: center;
+}
