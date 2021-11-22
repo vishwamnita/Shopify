@@ -23,6 +23,7 @@ import CeoMenu from "./components/CeoMenu";
 import SellerMenu from "./components/SellerMenu";
 import CreateUserScreen from './screens/CreateUserScreen';
 import DashboardScreen from "./screens/DashboardScreen";
+import CategoryScreen from "./screens/CategoryScreen";
 
 function App() {
 
@@ -93,16 +94,22 @@ function App() {
                     <button className="sidebar-close-button" onClick={closeMenu}>x</button>
                     <ul>
                         <li>
-                            <a className="link-color" href="index.html">Pants</a>
+                            <Link to="/pants" className="link-color">Pants</Link>
                         </li>
                         <li>
-                            <a className="link-color" href="index.html">Shirts</a>
+                            <Link to="/Shirts" className="link-color">Shirts</Link>
+                        </li>
+                        <li>
+                            <Link to="/shoes" className="link-color">Shoes</Link>
                         </li>
                     </ul>
                 </aside>
                 <main className="main">
                     <div className="content">
 
+                        <Route path="/shoes" render={(props) => <CategoryScreen filter="Shoes"/> } />
+                        <Route path="/shirts" render={(props) => <CategoryScreen filter="Shirts"/> } />
+                        <Route path="/pants" render={(props) => <CategoryScreen filter="Pants"/> } />
                         <Route path="/dashboard" component={DashboardScreen} />
                         <Route path="/createUser" component={CreateUserScreen} />
                         <Route path="/allorders" component={OrdersScreen} />

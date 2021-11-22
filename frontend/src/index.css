@@ -4,6 +4,7 @@ html {
 }
 
 body {
+  background-color: #868b83;
   font: 1.6rem Helvetica;
   height: 100vh;
   margin: 0;
@@ -44,7 +45,7 @@ li {
 .header {
   font-size: 2rem;
   grid-area: header;
-  background-color: #424242;
+  background-color: #47838d;
   color: #ffffff;
   display: flex;
   justify-content: space-between;
@@ -89,7 +90,7 @@ li {
 
 .footer {
   grid-area: footer;
-  background-color: #424242;
+  background-color: #2d2d2d;  
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -136,7 +137,7 @@ a:hover {
 
 .product-brand {
   font-size: 1.2rem;    
-  color: #808080;
+  color: #000000;
 }
 
 .product-price {
@@ -521,8 +522,8 @@ tbody>tr:nth-child(odd) {
 }
 
 .purpose {
-  color: #808080;
-  font-size: 3rem;
+  color: #000000;
+  font-size: 4rem;
   font-weight: 400;
   text-align: center;
 }
